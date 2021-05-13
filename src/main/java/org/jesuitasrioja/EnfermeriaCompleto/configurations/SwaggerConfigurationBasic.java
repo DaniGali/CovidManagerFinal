@@ -26,6 +26,6 @@ public class SwaggerConfigurationBasic {
 	public ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("API REST Enfermería")
 				.description("Este API RESP es sobre un proyecto de clase sobre el COVID.").version("0.1")
-				.contact(new Contact("Álvaro", "url", "dam16.2020@gmail.com")).build();
+				.contact(new Contact("Daniel", "url", "dam05.2020.jesuitas@gmail.com")).build();
 	}
 }

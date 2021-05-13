@@ -48,12 +48,12 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/alumnos/**").permitAll() // ver todos los alumnos 
 				.antMatchers(HttpMethod.GET, "/alumno/**").permitAll() // ver un determinado alumno
 				.antMatchers(HttpMethod.GET, "/usuarios/**").permitAll() // ver todos los usuarios
-				.antMatchers(HttpMethod.POST, "/alumno/**").hasRole("ADMIN") // añadir un alumno
-				.antMatchers(HttpMethod.PUT, "/alumno/**").hasRole("ADMIN") // modificar un alumno
-				.antMatchers(HttpMethod.DELETE, "/alumno/**").hasRole("ADMIN") // borrar un alumno
-				.antMatchers(HttpMethod.POST, "/usuario/**").hasRole("ADMIN") // añadir un usuario
-				.antMatchers(HttpMethod.PUT, "/usuario/**").hasRole("ADMIN") // modificar un alumno
-				.antMatchers(HttpMethod.DELETE, "/usuario/**").hasRole("ADMIN") // borrar un alumno
+				.antMatchers(HttpMethod.POST, "/alumno/**").permitAll() // añadir un alumno
+				.antMatchers(HttpMethod.PUT, "/alumno/**").permitAll() // modificar un alumno
+				.antMatchers(HttpMethod.DELETE, "/alumno/**").permitAll() // borrar un alumno
+				.antMatchers(HttpMethod.POST, "/usuario/**").permitAll() // añadir un usuario
+				.antMatchers(HttpMethod.PUT, "/usuario/**").permitAll() // modificar un alumno
+				.antMatchers(HttpMethod.DELETE, "/usuario/**").permitAll() // borrar un alumno
 				.anyRequest().permitAll().and().csrf().disable();
 
 		// Añadimos el filtro (lo hacemos más adelante). Justo antes de
