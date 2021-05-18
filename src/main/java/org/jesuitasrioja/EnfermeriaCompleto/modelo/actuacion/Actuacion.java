@@ -39,7 +39,7 @@ public class Actuacion implements Serializable{
 	@JoinColumn(name = "id_indicencia")
 	private Incidencia incidencia;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "identificador")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<PCR> listaPCR;
 
 }

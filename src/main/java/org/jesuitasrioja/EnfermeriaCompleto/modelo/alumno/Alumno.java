@@ -44,7 +44,7 @@ public class Alumno implements Serializable{
 	private String telefono;
 	private String direccion;
 	
-	@OneToMany(mappedBy = "identificador", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Responsable> responsables;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
