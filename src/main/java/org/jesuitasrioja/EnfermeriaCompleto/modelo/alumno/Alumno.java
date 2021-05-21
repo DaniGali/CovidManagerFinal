@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
 public class Alumno implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Include
 	private String identificador;
 	private String dni;
 	private String nombre;

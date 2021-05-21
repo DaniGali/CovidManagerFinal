@@ -47,6 +47,7 @@ public class IncidenciaController {
 	public ResponseEntity<Alumno> postIncidencia(@RequestBody Incidencia nuevaIncidencia, @PathVariable String id) {
 		Optional<Alumno> alumnoOptional = as.findById(id);
 		if (alumnoOptional.isPresent()) {
+			is.save(nuevaIncidencia);
 			return ResponseEntity.status(HttpStatus.OK).body(alumnoOptional.get());
 		} else {
 			throw new AlumnoNoEncontradoException(id);
