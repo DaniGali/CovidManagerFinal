@@ -2,15 +2,20 @@ package org.jesuitasrioja.EnfermeriaCompleto.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.PCR.PCR;
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.actuacion.Actuacion;
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.alumno.Alumno;
+import org.jesuitasrioja.EnfermeriaCompleto.modelo.alumno.AlumnoDTO;
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.incidencia.Incidencia;
 import org.jesuitasrioja.EnfermeriaCompleto.persistencia.services.ActuacionService;
 import org.jesuitasrioja.EnfermeriaCompleto.persistencia.services.IncidenciaService;
 import org.jesuitasrioja.EnfermeriaCompleto.persistencia.services.PcrService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -84,6 +89,29 @@ public class ActuacionController {
 		
 		return "OK";
 	}
+	
+//	/*
+//	 * 
+//	 * GET actuaciones: 
+//	 * 
+//	 * */
+//	
+//	@ApiOperation(value = "Obtener todos los alumnos paginados",
+//			 notes = "Con este metodo conseguimos mandar todos los alumnos de 10 en 10. Así la Web podrá recoger los datos mas facilmente.")
+//	@GetMapping("/actuaciones")
+//	public ResponseEntity<?> allActuaciones(@PageableDefault(size = 10, page = 0) Pageable pageable) {
+//		Page<Actuacion> pagina = as.findAll(pageable);
+//		
+//		// transformar elementos de la pagina a DTO
+//				Page<AlumnoDTO> paginaDTO = pagina.map(new Function<Alumno, AlumnoDTO>() {
+//					@Override
+//					public AlumnoDTO apply(Alumno a) {
+//						return alumnoDTOConverter.convertAlumnoToAlumnoDTO(a);
+//					}
+//				});
+//
+//		return ResponseEntity.status(HttpStatus.OK).body(paginaDTO);
+//	}
 	
 	/*
 	 * 

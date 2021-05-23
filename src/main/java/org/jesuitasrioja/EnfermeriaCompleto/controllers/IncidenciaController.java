@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
+import org.jesuitasrioja.EnfermeriaCompleto.modelo.actuacion.Actuacion;
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.alumno.Alumno;
+import org.jesuitasrioja.EnfermeriaCompleto.modelo.alumno.AlumnoDTO;
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.incidencia.Incidencia;
 import org.jesuitasrioja.EnfermeriaCompleto.persistencia.services.AlumnoService;
 import org.jesuitasrioja.EnfermeriaCompleto.persistencia.services.IncidenciaService;
@@ -45,9 +48,13 @@ public class IncidenciaController {
 			 notes = "Con este metodo conseguimos añadir una incidencia para un alumno.")
 	@PostMapping("/incidencia/alumno/{id}")
 	public ResponseEntity<Alumno> postIncidencia(@RequestBody Incidencia nuevaIncidencia, @PathVariable String id) {
+		List<Incidencia> incidencias = new ArrayList<Incidencia>();
+		incidencias.add(nuevaIncidencia);
 		Optional<Alumno> alumnoOptional = as.findById(id);
 		if (alumnoOptional.isPresent()) {
-			is.save(nuevaIncidencia);
+			Alumno alumno=alumnoOptional.get();
+			alumno.setIncidencias(incidencias);
+			as.save(alumno);
 			return ResponseEntity.status(HttpStatus.OK).body(alumnoOptional.get());
 		} else {
 			throw new AlumnoNoEncontradoException(id);
@@ -67,6 +74,29 @@ public class IncidenciaController {
 		is.deleteById(id);
 		return "OK";
 	}
+	
+	/*
+	 * 
+	 * GET incidencias: 
+	 * 
+	 * */
+	
+//	@ApiOperation(value = "Obtener todos los alumnos paginados",
+//			 notes = "Con este metodo conseguimos mandar todos los alumnos de 10 en 10. Así la Web podrá recoger los datos mas facilmente.")
+//	@GetMapping("/actuaciones")
+//	public ResponseEntity<?> allIncidencias(@PageableDefault(size = 10, page = 0) Pageable pageable) {
+//		Page<Incidencia> pagina = is.findAll(pageable);
+//		
+//		// transformar elementos de la pagina a DTO
+//				Page<AlumnoDTO> paginaDTO = pagina.map(new Function<Alumno, AlumnoDTO>() {
+//					@Override
+//					public AlumnoDTO apply(Alumno a) {
+//						return alumnoDTOConverter.convertAlumnoToAlumnoDTO(a);
+//					}
+//				});
+//
+//		return ResponseEntity.status(HttpStatus.OK).body(paginaDTO);
+//	}
 	
 	/*
 	 * 
