@@ -10,6 +10,8 @@ import org.jesuitasrioja.EnfermeriaCompleto.modelo.actuacion.Actuacion;
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.alumno.Alumno;
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.alumno.AlumnoDTO;
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.incidencia.Incidencia;
+import org.jesuitasrioja.EnfermeriaCompleto.modelo.incidencia.IncidenciaDTO;
+import org.jesuitasrioja.EnfermeriaCompleto.modelo.incidencia.IncidenciaDTOConverter;
 import org.jesuitasrioja.EnfermeriaCompleto.persistencia.services.AlumnoService;
 import org.jesuitasrioja.EnfermeriaCompleto.persistencia.services.IncidenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,7 @@ public class IncidenciaController {
 	
 	@Autowired
 	private AlumnoService as;
+	
 	
 	/*
 	 * 
@@ -70,33 +73,10 @@ public class IncidenciaController {
 	@ApiOperation(value = "Borrar una incidencia",
 			 notes = "Con este metodo conseguimos borrar una Incidencia por identificador. De esta forma conseguiremos borrar una Incidencia específica.")
 	@DeleteMapping("/incidencia/{id}")
-	public String deleteIncidencia(@PathVariable Long id) {
+	public String deleteIncidencia(@PathVariable String id) {
 		is.deleteById(id);
 		return "OK";
 	}
-	
-	/*
-	 * 
-	 * GET incidencias: 
-	 * 
-	 * */
-	
-//	@ApiOperation(value = "Obtener todos los alumnos paginados",
-//			 notes = "Con este metodo conseguimos mandar todos los alumnos de 10 en 10. Así la Web podrá recoger los datos mas facilmente.")
-//	@GetMapping("/actuaciones")
-//	public ResponseEntity<?> allIncidencias(@PageableDefault(size = 10, page = 0) Pageable pageable) {
-//		Page<Incidencia> pagina = is.findAll(pageable);
-//		
-//		// transformar elementos de la pagina a DTO
-//				Page<AlumnoDTO> paginaDTO = pagina.map(new Function<Alumno, AlumnoDTO>() {
-//					@Override
-//					public AlumnoDTO apply(Alumno a) {
-//						return alumnoDTOConverter.convertAlumnoToAlumnoDTO(a);
-//					}
-//				});
-//
-//		return ResponseEntity.status(HttpStatus.OK).body(paginaDTO);
-//	}
 	
 	/*
 	 * 
@@ -107,7 +87,7 @@ public class IncidenciaController {
 	@ApiOperation(value = "Obtener una incidencia por identificador",
 			 notes = "Con este metodo conseguimos recoger la información de una incidencia específica.")
 	@GetMapping("/incidencia/{id}")
-	public ResponseEntity<Incidencia> getIncidencia(@PathVariable Long id) {
+	public ResponseEntity<Incidencia> getIncidencia(@PathVariable String id) {
 
 		Optional<Incidencia> incidenciaOptional = is.findById(id);
 		if (incidenciaOptional.isPresent()) {

@@ -64,17 +64,18 @@ public class AlumnoController {
 			 notes = "Con este metodo conseguimos mandar todos los alumnos de 10 en 10. Así la Web podrá recoger los datos mas facilmente.")
 	@GetMapping("/alumnos")
 	public ResponseEntity<?> allAlumnos(@PageableDefault(size = 10, page = 0) Pageable pageable) {
-		Page<Alumno> pagina = as.findAll(pageable);
+		List<Alumno> pagina = as.findAll();
 		
 		// transformar elementos de la pagina a DTO
-				Page<AlumnoDTO> paginaDTO = pagina.map(new Function<Alumno, AlumnoDTO>() {
-					@Override
-					public AlumnoDTO apply(Alumno a) {
-						return alumnoDTOConverter.convertAlumnoToAlumnoDTO(a);
-					}
-				});
+//				Page<AlumnoDTO> paginaDTO = pagina.map(new Function<Alumno, AlumnoDTO>() {
+//					@Override
+//					public AlumnoDTO apply(Alumno a) {
+//						return alumnoDTOConverter.convertAlumnoToAlumnoDTO(a);
+//					}
+//				});
+		
+		return ResponseEntity.status(HttpStatus.OK).body(pagina);
 
-		return ResponseEntity.status(HttpStatus.OK).body(paginaDTO);
 	}
 	
 	/*
@@ -229,6 +230,7 @@ public class AlumnoController {
 		} else {
 			throw new AlumnoNoEncontradoException(id);
 		}
+
 	}
 	
 	/*
@@ -240,7 +242,7 @@ public class AlumnoController {
 	@ApiOperation(value = "Eliminar una Incidencia de un Alumno",
 			 notes = "Con este metodo conseguimos eliminar una incidencia de un Alumno. Pero no lo borramos de la BD solo lo desvinculamos de ese Alumno")
 	@DeleteMapping("/alumno/{idAlumno}/incidencia/{idIncidencia}")
-	public ResponseEntity<String> borrarIncidenciaAlumno(@PathVariable String idAlumno, @PathVariable Long idIncidencia) {
+	public ResponseEntity<String> borrarIncidenciaAlumno(@PathVariable String idAlumno, @PathVariable String idIncidencia) {
 		
 		Optional<Alumno> alumnoOptional = as.findById(idAlumno);
 		if(alumnoOptional.isPresent()) {

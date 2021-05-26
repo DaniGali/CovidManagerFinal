@@ -49,7 +49,7 @@ public class ActuacionController {
 	@ApiOperation(value = "Crear una nueva actuacion dentro de una incidencia",
 			 notes = "Con este metodo conseguimos crear una nueva actuación pasandole el identificador de la incidencia y toda la informacion de la nueva Actuacion.")
 	@PostMapping("/actuacion/incidencia/{id}")
-	public String postAlumno(@RequestBody Actuacion nuevaActuacion, @PathVariable Long id) {
+	public String postAlumno(@RequestBody Actuacion nuevaActuacion, @PathVariable String id) {
 		
 		Optional<Incidencia> incidenciaOptional = is.findById(id);
 		
@@ -167,7 +167,7 @@ public class ActuacionController {
 	@ApiOperation(value = "Borrar una actuacion",
 			 notes = "Con este metodo conseguimos borrar una Actuación por identificador y todos los PCR que tenga asociados. De esta forma conseguiremos borrar una Actuación específica.")
 	@DeleteMapping("/actuacion/pcr/{id}")
-	public String deletePCR(@PathVariable Long id) {
+	public String deletePCR(@PathVariable String id) {
 		ps.deleteById(id);
 		List<Actuacion> actuaciones = as.findAll();
 		
@@ -192,7 +192,7 @@ public class ActuacionController {
 	@ApiOperation(value = "Modificar un PCR",
 			 notes = "Con este metodo conseguimos modificar un PCR.")
 	@PutMapping("/actuacion/pcr/{idPcr}")
-	public ResponseEntity<String> modificarPCR(@RequestBody PCR pcr, @PathVariable Long idPcr) {
+	public ResponseEntity<String> modificarPCR(@RequestBody PCR pcr, @PathVariable String idPcr) {
 		Optional<PCR> pcrOptional = ps.findById(idPcr);
 		
 		if (pcrOptional.isPresent()) {

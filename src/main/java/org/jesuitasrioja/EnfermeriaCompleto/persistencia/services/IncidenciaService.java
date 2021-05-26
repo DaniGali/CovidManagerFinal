@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class IncidenciaService extends BaseService<Incidencia, Long, IncidenciaRepository>{
+public class IncidenciaService extends BaseService<Incidencia, String, IncidenciaRepository>{
 
 	public Page<Incidencia> encontrarPorRangoFechas(Date fechaInicio, Date fechaFin, Pageable pagueable){
 		return this.repositorio.findByFechaBetween(fechaInicio, fechaFin, pagueable);

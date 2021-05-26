@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.NOT_FOUND)
 public class IncidenciaNoEncontradaException extends RuntimeException{
 
-	public IncidenciaNoEncontradaException(Long idIncidencia) {
-		super("incidencia with " + idIncidencia + " can not be retrieved");
+	public IncidenciaNoEncontradaException(String id) {
+		super("incidencia with " + id + " can not be retrieved");
 	}
 }

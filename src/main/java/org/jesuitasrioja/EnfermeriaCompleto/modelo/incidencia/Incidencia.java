@@ -32,8 +32,7 @@ public class Incidencia implements Serializable{
 	
 	@Id
 	@Include
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long identificador;
+	private String identificador;
 	private String sintomatologia;
 	private Date fecha;	
 	

@@ -23,8 +23,7 @@ import lombok.NoArgsConstructor;
 public class Responsable implements Serializable{
 	@Id
 	@Include
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long identificador;
+	private String identificador;
 	private String telefono;
 	private String parentesco;
 	private String nombre;

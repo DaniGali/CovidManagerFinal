@@ -5,6 +5,6 @@ import org.jesuitasrioja.EnfermeriaCompleto.persistencia.repositories.PcrReposit
 import org.springframework.stereotype.Service;
 
 @Service
-public class PcrService extends BaseService<PCR, Long, PcrRepository>{
+public class PcrService extends BaseService<PCR, String, PcrRepository>{
 
 }

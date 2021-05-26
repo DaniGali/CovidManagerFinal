@@ -29,8 +29,7 @@ public class DatosMedicos implements Serializable {
 
 	@Id
 	@Include
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long identificador;
+	private String identificador;
 	private String alergias;
 	private String otros;
 

@@ -25,9 +25,8 @@ public class PCR implements Serializable{
 	
 	private Date fecha;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Include
-	private long identificador;
+	private String identificador;
 	private String tipo;
 	private String estado;
 
