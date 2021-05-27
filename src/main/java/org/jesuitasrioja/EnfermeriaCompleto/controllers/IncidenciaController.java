@@ -57,8 +57,8 @@ public class IncidenciaController {
 		if (alumnoOptional.isPresent()) {
 			Alumno alumno=alumnoOptional.get();
 			alumno.setIncidencias(incidencias);
-			as.save(alumno);
-			return ResponseEntity.status(HttpStatus.OK).body(alumnoOptional.get());
+			Alumno alunoSAved = as.save(alumno);
+			return ResponseEntity.status(HttpStatus.OK).body(alunoSAved);
 		} else {
 			throw new AlumnoNoEncontradoException(id);
 		}

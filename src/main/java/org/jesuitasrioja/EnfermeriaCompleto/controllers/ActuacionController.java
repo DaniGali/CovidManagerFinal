@@ -90,28 +90,6 @@ public class ActuacionController {
 		return "OK";
 	}
 	
-//	/*
-//	 * 
-//	 * GET actuaciones: 
-//	 * 
-//	 * */
-//	
-//	@ApiOperation(value = "Obtener todos los alumnos paginados",
-//			 notes = "Con este metodo conseguimos mandar todos los alumnos de 10 en 10. Así la Web podrá recoger los datos mas facilmente.")
-//	@GetMapping("/actuaciones")
-//	public ResponseEntity<?> allActuaciones(@PageableDefault(size = 10, page = 0) Pageable pageable) {
-//		Page<Actuacion> pagina = as.findAll(pageable);
-//		
-//		// transformar elementos de la pagina a DTO
-//				Page<AlumnoDTO> paginaDTO = pagina.map(new Function<Alumno, AlumnoDTO>() {
-//					@Override
-//					public AlumnoDTO apply(Alumno a) {
-//						return alumnoDTOConverter.convertAlumnoToAlumnoDTO(a);
-//					}
-//				});
-//
-//		return ResponseEntity.status(HttpStatus.OK).body(paginaDTO);
-//	}
 	
 	/*
 	 * 

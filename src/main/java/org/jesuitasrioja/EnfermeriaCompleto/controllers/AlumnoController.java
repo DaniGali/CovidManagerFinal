@@ -218,7 +218,7 @@ public class AlumnoController {
 	@ApiOperation(value = "Añadir un incidencia al alumno",
 			 notes = "Con este metodo conseguimos añadir una nueva incidencia a un alumno.")
 	@PostMapping("/alumno/{id}/incidencia")
-	public ResponseEntity<String> postIncidenciaAlumno(@RequestBody Incidencia nuevaIncidencia, @PathVariable String id) {
+	public ResponseEntity<?> postIncidenciaAlumno(@RequestBody Incidencia nuevaIncidencia, @PathVariable String id) {
 		
 		Optional<Alumno> alumnoOptional = as.findById(id);
 		if(alumnoOptional.isPresent()) {
@@ -226,7 +226,8 @@ public class AlumnoController {
 			List<Incidencia> lista = alumnoModificado.getIncidencias();
 			lista.add(nuevaIncidencia);
 			alumnoModificado.setIncidencias(lista);
-			return ResponseEntity.status(HttpStatus.OK).body(as.save(alumnoModificado).toString());
+			Alumno alumnoSaved = as.save(alumnoModificado);
+			return ResponseEntity.status(HttpStatus.OK).body(alumnoSaved);
 		} else {
 			throw new AlumnoNoEncontradoException(id);
 		}
