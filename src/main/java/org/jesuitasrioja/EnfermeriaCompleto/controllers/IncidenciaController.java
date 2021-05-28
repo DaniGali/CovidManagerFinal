@@ -40,6 +40,45 @@ public class IncidenciaController {
 	@Autowired
 	private AlumnoService as;
 	
+	@Autowired
+	IncidenciaDTOConverter incidenciaDTOConverter;
+	
+	/*
+	 * 
+	 * POST incidencias
+	 * 
+	 * */
+	
+	@ApiOperation(value = "Añadir un alumno",
+			 notes = "Con este metodo conseguimos añadir un Alumno.")
+	@PostMapping("/incidencias")
+	public String postIncidencias(@RequestBody Incidencia incidencia) {
+		return is.save(incidencia).toString();
+	}
+	
+	/*
+	 * 
+	 * GET incidencias: 
+	 * 
+	 * */
+	
+	@ApiOperation(value = "Obtener todos los alumnos paginados",
+			 notes = "Con este metodo conseguimos mandar todos los alumnos de 10 en 10. Así la Web podrá recoger los datos mas facilmente.")
+	@GetMapping("/incidencias")
+	public ResponseEntity<?> allIncidencias(@PageableDefault(size = 10, page = 0) Pageable pageable) {
+		Page<Incidencia> pagina = is.findAll(pageable);
+		
+		// transformar elementos de la pagina a DTO
+				Page<IncidenciaDTO> paginaDTO = pagina.map(new Function<Incidencia, IncidenciaDTO>() {
+					@Override
+					public IncidenciaDTO apply(Incidencia i) {
+						return incidenciaDTOConverter.convertIncidenciaToIncidenciaDTO(i);
+					}
+				});
+		
+		return ResponseEntity.status(HttpStatus.OK).body(paginaDTO);
+
+	}
 	
 	/*
 	 * 
@@ -131,7 +170,7 @@ public class IncidenciaController {
 	
 	@ApiOperation(value = "Obtener una clase por identificador",
 			 notes = "Con este metodo conseguimos recoger la información de una clase específica.")
-	@GetMapping("/incidencias")
+	@GetMapping("/incidencia")
 	public ResponseEntity<?> getIncidenciasRango(@PageableDefault(size = 10, page = 0) Pageable pageable, @RequestParam(name = "from") Date from, @RequestParam(name = "to") Date to) {
 		
 		Page<Incidencia> incidencias = is.encontrarPorRangoFechas(from, to, pageable);

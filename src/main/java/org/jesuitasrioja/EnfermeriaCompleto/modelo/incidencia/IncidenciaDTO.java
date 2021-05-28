@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class IncidenciaDTO implements Serializable{
 
+	private String identificador;
 	private String sintomatologia;
 	private Date fecha;
 

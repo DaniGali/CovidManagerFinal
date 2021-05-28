@@ -64,17 +64,17 @@ public class AlumnoController {
 			 notes = "Con este metodo conseguimos mandar todos los alumnos de 10 en 10. Así la Web podrá recoger los datos mas facilmente.")
 	@GetMapping("/alumnos")
 	public ResponseEntity<?> allAlumnos(@PageableDefault(size = 10, page = 0) Pageable pageable) {
-		List<Alumno> pagina = as.findAll();
+		Page<Alumno> pagina = as.findAll(pageable);
 		
 		// transformar elementos de la pagina a DTO
-//				Page<AlumnoDTO> paginaDTO = pagina.map(new Function<Alumno, AlumnoDTO>() {
-//					@Override
-//					public AlumnoDTO apply(Alumno a) {
-//						return alumnoDTOConverter.convertAlumnoToAlumnoDTO(a);
-//					}
-//				});
+				Page<AlumnoDTO> paginaDTO = pagina.map(new Function<Alumno, AlumnoDTO>() {
+					@Override
+					public AlumnoDTO apply(Alumno a) {
+						return alumnoDTOConverter.convertAlumnoToAlumnoDTO(a);
+					}
+				});
 		
-		return ResponseEntity.status(HttpStatus.OK).body(pagina);
+		return ResponseEntity.status(HttpStatus.OK).body(paginaDTO);
 
 	}
 	
@@ -87,7 +87,7 @@ public class AlumnoController {
 	@ApiOperation(value = "Obtener un alumno por identificador",
 			 notes = "Con este metodo conseguimos recoger la información de un Alumno específico.")
 	@GetMapping("/alumno/{id}")
-	public ResponseEntity<Alumno> getAlumno(@PathVariable String id) {
+	public ResponseEntity<?> getAlumno(@PathVariable String id) {
 
 		Optional<Alumno> alumnoOptional = as.findById(id);
 		if (alumnoOptional.isPresent()) {
@@ -223,11 +223,9 @@ public class AlumnoController {
 		Optional<Alumno> alumnoOptional = as.findById(id);
 		if(alumnoOptional.isPresent()) {
 			Alumno alumnoModificado = alumnoOptional.get();
-			List<Incidencia> lista = alumnoModificado.getIncidencias();
-			lista.add(nuevaIncidencia);
-			alumnoModificado.setIncidencias(lista);
-			Alumno alumnoSaved = as.save(alumnoModificado);
-			return ResponseEntity.status(HttpStatus.OK).body(alumnoSaved);
+			nuevaIncidencia.setAlumno(alumnoModificado);
+			Incidencia i = is.save(nuevaIncidencia);
+			return ResponseEntity.status(HttpStatus.OK).build();
 		} else {
 			throw new AlumnoNoEncontradoException(id);
 		}

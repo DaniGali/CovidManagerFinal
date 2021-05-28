@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlumnoDTO implements Serializable{
-	
+public class AlumnoIncidenciaDTO implements Serializable{
 	private String identificador;	
 	private String dni;
 	private String nombre;	
@@ -20,5 +19,5 @@ public class AlumnoDTO implements Serializable{
 	private String apellido2;
 	private String telefono;
 	private String direccion;
-
+	private IncidenciaDTO incidenciaDTO;
 }
