@@ -9,6 +9,7 @@ import org.jesuitasrioja.EnfermeriaCompleto.modelo.actuacion.Actuacion;
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.alumno.Alumno;
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.alumno.AlumnoDTO;
 import org.jesuitasrioja.EnfermeriaCompleto.modelo.incidencia.Incidencia;
+import org.jesuitasrioja.EnfermeriaCompleto.modelo.incidencia.IncidenciaDTO;
 import org.jesuitasrioja.EnfermeriaCompleto.persistencia.services.ActuacionService;
 import org.jesuitasrioja.EnfermeriaCompleto.persistencia.services.IncidenciaService;
 import org.jesuitasrioja.EnfermeriaCompleto.persistencia.services.PcrService;
@@ -88,6 +89,30 @@ public class ActuacionController {
 		}
 		
 		return "OK";
+	}
+	
+	/*
+	 * 
+	 * GET actuaciones: 
+	 * 
+	 * */
+	
+	@ApiOperation(value = "Obtener todos los alumnos paginados",
+			 notes = "Con este metodo conseguimos mandar todos los alumnos de 10 en 10. Así la Web podrá recoger los datos mas facilmente.")
+	@GetMapping("/actuaciones")
+	public ResponseEntity<?> allIncidencias(@PageableDefault(size = 10, page = 0) Pageable pageable) {
+		List<Actuacion> pagina = as.findAll();
+		
+//		// transformar elementos de la pagina a DTO
+//				Page<IncidenciaDTO> paginaDTO = pagina.map(new Function<Incidencia, IncidenciaDTO>() {
+//					@Override
+//					public IncidenciaDTO apply(Incidencia i) {
+//						return incidenciaDTOConverter.convertIncidenciaToIncidenciaDTO(i);
+//					}
+//				});
+		
+		return ResponseEntity.status(HttpStatus.OK).body(pagina);
+
 	}
 	
 	
